@@ -5,12 +5,12 @@ import anthropic
 def extract_keywords(text, client):
     messages = [
                 {"role": "system", "content": "You are an AI assistant that extracts relevant keywords from text and return keywords concisely in csv format"},
-                {"role": "user", "content": f"Please extract relevant keywords from the following content:\n\n{text}"}
+                {"role": "user", "content": f"Please extract relevant keywords from the following content:{text}"}
             ]
     response = client.messages.create(
         model="claude-3-opus,sonnet, or haiku",  
         messages=messages,
-        max_tokens_to_sample=100,
+        max_tokens=100,
     )
     keywords = response["message"]["content"].strip().split(",")
     return [keyword.strip() for keyword in keywords]
